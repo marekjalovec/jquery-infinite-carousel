@@ -22,6 +22,8 @@ jQuery.fn.carousel = function(previous, next, options){
 		}
 		
 		jQuery(previous).click(function(event){
+			event.preventDefault();
+
 			if (!isAnimating) {
 				if (firstElementOnViewPort == 1) {
 					jQuery(sliderList).css('left', "-" + numElmts * sizeFirstElmnt + "px");
@@ -42,6 +44,8 @@ jQuery.fn.carousel = function(previous, next, options){
 		});
 		
 		jQuery(next).click(function(event){
+			event.preventDefault();
+
 			if (!isAnimating) {
 				if (firstElementOnViewPort > numElmts) {
 					firstElementOnViewPort = 2;
