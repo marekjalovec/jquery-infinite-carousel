@@ -18,7 +18,7 @@ jQuery.fn.carousel = function(previous, next, options){
 		
 		for (i = 0; i < shownInViewport; i++) {
 			jQuery(sliderList).css('width',(numElmts+shownInViewport)*increment + increment + "px");
-			jQuery(sliderList).append(jQuery(elmnts[i]).clone());
+			jQuery(sliderList).append(jQuery(elmnts[i]).clone(true));
 		}
 		
 		jQuery(previous).click(function(event){
