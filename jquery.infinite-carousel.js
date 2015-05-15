@@ -15,7 +15,10 @@ jQuery.fn.carousel = function(previous, next, options){
 		shownInViewport = Math.round(jQuery(this).width() / sizeFirstElmnt),
 		firstElementOnViewPort = 1,
 		isAnimating = false;
-		
+
+		// don't create the carousel if there is not enough items
+		if (numElmts <= shownInViewport) return;
+
 		for (i = 0; i < shownInViewport; i++) {
 			jQuery(sliderList).css('width',(numElmts+shownInViewport)*increment + increment + "px");
 			jQuery(sliderList).append(jQuery(elmnts[i]).clone(true));
