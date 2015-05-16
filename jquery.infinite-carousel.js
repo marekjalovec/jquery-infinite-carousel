@@ -23,10 +23,10 @@
             if (numElmts <= shownInViewport) return;
 
             // clone initialy shown elements and append them to the end
-            for (i = 0; i < shownInViewport; i++) {
+            for (var i = 0; i < shownInViewport; i++) {
                 $(sliderList).append($(elmnts[ i ]).clone(true));
             }
-            $(sliderList).css('width', (numElmts + shownInViewport) * sizeFirstElmnt + sizeFirstElmnt + 'px');
+            $(sliderList).css('width', (numElmts + shownInViewport) * sizeFirstElmnt + 'px');
 
             // previous
             $(previous).click(function (event) {
