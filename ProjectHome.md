@@ -2,11 +2,11 @@ Add an infinite carousel on your site, the easy way. See a [Demo here](http://sr
 
 ## Features ##
 
-  * Really easy way to insert a quality HTML carousel on your site
-  * Loop infinitely over items when clicking next or previous button
-  * Avoid animation flickering due to multi-clicks on next and previous buttons
+  * Really easy to insert a HTML carousel on your site.
+  * Loop infinitely over items when clicking next or previous button.
+  * Avoid animation flickering due to multi-clicks on next and previous buttons.
 
-## Some HTML ##
+## Sample HTML ##
 
 ```
 <div id="viewport">
@@ -24,10 +24,9 @@ Add an infinite carousel on your site, the easy way. See a [Demo here](http://sr
 <!-- 
 ul/li structure can be replaced by any other html structure as div/div, div/span... 
 -->
-
 ```
 
-## Some CSS ##
+## Sample CSS ##
 
 ```
 /* Comments on styles purpose in the source code */
@@ -47,28 +46,26 @@ ul/li structure can be replaced by any other html structure as div/div, div/span
 }
 ```
 
-## Some JavaScript : the magic ##
+## Initialize the carousel ##
 ```
 $('#viewport').carousel('#previous', '#next');
 ```
 
-## Tips ##
-If you need to activate auto-scrolling on your carousel, simply simulate a click :
+## Custom easing and duration ##
+Animation easing and duration can be changed in configuration object.
 ```
-//The auto-scrolling function
-function slide(){
-  $('#simpleNext').click();
-}
-//Launch the scroll every 2 seconds
-var intervalId = window.setInterval(slide, 2000);
+$('#viewport').carousel('#previous', '#next', {
+    duration: 600,
+    easing: 'linear'
+});
+```
 
-//On user click deactivate auto-scrolling
-$('#previous, #simpleNext').click(
- function(event){
-  if(event.originalEvent){
-   window.clearInterval(intervalId);
-  }
- }
-);
-
+## Autoscrolling ##
+Autoscrolling can be enabled in configuration object.
+```
+$('#viewport').carousel('#previous', '#next', {
+    autoslide: false,
+    autoslideTimeout: 5000,
+    autoslideDirection: 'next'
+});
 ```
