@@ -15,7 +15,7 @@
                 duration: 400,
                 easing: 'swing',
                 autoslide: false,
-                autoslideTimeout: 1000,
+                autoslideTimeout: 5000,
                 autoslideDirection: 'next'
             }, config),
             autoslideTimeout;

@@ -60,11 +60,11 @@ $('#viewport').carousel('#previous', '#next', {
 });
 ```
 
-## Autoscrolling ##
-Autoscrolling can be enabled in configuration object.
+## Autoslide ##
+Autoslide can be enabled in configuration object.
 ```
 $('#viewport').carousel('#previous', '#next', {
-    autoslide: false,
+    autoslide: true,
     autoslideTimeout: 5000,
     autoslideDirection: 'next'
 });
