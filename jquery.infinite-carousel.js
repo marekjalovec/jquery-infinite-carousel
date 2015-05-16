@@ -9,11 +9,16 @@
 
 (function ($) {
     $.fn.carousel = function (previous, next, config) {
-        var sliderList = $(this).children()[ 0 ],
+        var $viewport = $(this),
+            sliderList = $viewport.children()[ 0 ],
             config = $.extend({
                 duration: 400,
-                easing: 'swing'
-            }, config);
+                easing: 'swing',
+                autoslide: false,
+                autoslideTimeout: 1000,
+                autoslideDirection: 'next'
+            }, config),
+            autoslideTimeout;
 
         if (sliderList) {
             var sizeFirstElmnt = $(sliderList).children().outerWidth(true),
@@ -87,6 +92,29 @@
                     isAnimating = true;
                 }
             });
+
+            // autoslide
+            if (config.autoslide) {
+                var autoslide = (function autoslide() {
+                    autoslideTimeout = setTimeout(function () {
+                        (config.autoslideDirection === 'next' ? $(next) : $(previous)).click();
+
+                        autoslide();
+                    }, config.autoslideTimeout);
+
+                    return autoslide;
+                })();
+
+                // pause/unpause autoscroll on hover in/out over viewport/next/previous
+                $viewport.add(next).add(previous).hover(
+                    function() {
+                        clearTimeout(autoslideTimeout);
+                    },
+                    function() {
+                        autoslide();
+                    }
+                );
+            }
         }
     };
 })(jQuery);
