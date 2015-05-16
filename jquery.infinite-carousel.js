@@ -8,8 +8,12 @@
  */
 
 (function ($) {
-    $.fn.carousel = function (previous, next, options) {
-        var sliderList = $(this).children()[ 0 ];
+    $.fn.carousel = function (previous, next, config) {
+        var sliderList = $(this).children()[ 0 ],
+            config = $.extend({
+                duration: 400,
+                easing: 'swing'
+            }, config);
 
         if (sliderList) {
             var sizeFirstElmnt = $(sliderList).children().outerWidth(true),
@@ -45,7 +49,7 @@
                         left: '+=' + sizeFirstElmnt,
                         y: 0,
                         queue: true
-                    }, 'swing', function () {
+                    }, config.duration, config.easing, function () {
                         // set the animation flag
                         isAnimating = false;
                     });
@@ -71,7 +75,7 @@
                         left: '-=' + sizeFirstElmnt,
                         y: 0,
                         queue: true
-                    }, 'swing', function () {
+                    }, config.duration, config.easing, function () {
                         // unset the animation flag
                         isAnimating = false;
                     });

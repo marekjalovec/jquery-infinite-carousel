@@ -12,8 +12,11 @@
 
         <script type="text/javascript">
             $(document).ready(function(){
-                $('#slider-stage').carousel('#previous', '#next');
-                $('#viewport').carousel('#simplePrevious', '#simpleNext');  
+                $('#viewport').carousel('#simplePrevious', '#simpleNext');
+                $('#slider-stage').carousel('#previous', '#next', {
+                    duration: 600,
+                    easing: 'linear'
+                });
             });
         </script>
     </head>
