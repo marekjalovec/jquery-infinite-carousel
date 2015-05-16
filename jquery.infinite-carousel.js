@@ -1,69 +1,85 @@
 /**
- * @author Stéphane Roucheray 
- * @extends jquery
+ * jQuery infinite carousel plugin
+ *
+ * @author Stéphane Roucheray
+ * @author Marek Jalovec
+ *
+ * @url https://github.com/marekjalovec/jquery-infinite-carousel/
  */
 
+(function ($) {
+    $.fn.carousel = function (previous, next, options) {
+        var sliderList = $(this).children()[ 0 ];
 
-jQuery.fn.carousel = function(previous, next, options){
-	var sliderList = jQuery(this).children()[0];
-	
-	if (sliderList) {
-		var increment = jQuery(sliderList).children().outerWidth(true),
-		elmnts = jQuery(sliderList).children(),
-		numElmts = elmnts.length,
-		sizeFirstElmnt = increment,
-		shownInViewport = Math.round(jQuery(this).width() / sizeFirstElmnt),
-		firstElementOnViewPort = 1,
-		isAnimating = false;
+        if (sliderList) {
+            var sizeFirstElmnt = $(sliderList).children().outerWidth(true),
+                elmnts = $(sliderList).children(),
+                numElmts = elmnts.length,
+                shownInViewport = Math.round($(this).width() / sizeFirstElmnt),
+                firstElementOnViewPort = 1,
+                isAnimating = false;
 
-		// don't create the carousel if there is not enough items
-		if (numElmts <= shownInViewport) return;
+            // don't create the carousel if there is not enough items
+            if (numElmts <= shownInViewport) return;
 
-		for (i = 0; i < shownInViewport; i++) {
-			jQuery(sliderList).css('width',(numElmts+shownInViewport)*increment + increment + "px");
-			jQuery(sliderList).append(jQuery(elmnts[i]).clone(true));
-		}
-		
-		jQuery(previous).click(function(event){
-			event.preventDefault();
+            // clone initialy shown elements and append them to the end
+            for (i = 0; i < shownInViewport; i++) {
+                $(sliderList).append($(elmnts[ i ]).clone(true));
+            }
+            $(sliderList).css('width', (numElmts + shownInViewport) * sizeFirstElmnt + sizeFirstElmnt + 'px');
 
-			if (!isAnimating) {
-				if (firstElementOnViewPort == 1) {
-					jQuery(sliderList).css('left', "-" + numElmts * sizeFirstElmnt + "px");
-					firstElementOnViewPort = numElmts;
-				}
-				else {
-					firstElementOnViewPort--;
-				}
-				
-				jQuery(sliderList).animate({
-					left: "+=" + increment,
-					y: 0,
-					queue: true
-				}, "swing", function(){isAnimating = false;});
-				isAnimating = true;
-			}
-			
-		});
-		
-		jQuery(next).click(function(event){
-			event.preventDefault();
+            // previous
+            $(previous).click(function (event) {
+                event.preventDefault();
 
-			if (!isAnimating) {
-				if (firstElementOnViewPort > numElmts) {
-					firstElementOnViewPort = 2;
-					jQuery(sliderList).css('left', "0px");
-				}
-				else {
-					firstElementOnViewPort++;
-				}
-				jQuery(sliderList).animate({
-					left: "-=" + increment,
-					y: 0,
-					queue: true
-				}, "swing", function(){isAnimating = false;});
-				isAnimating = true;
-			}
-		});
-	}
-};
+                if (!isAnimating) {
+                    if (firstElementOnViewPort == 1) {
+                        $(sliderList).css('left', '-' + numElmts * sizeFirstElmnt + 'px');
+                        firstElementOnViewPort = numElmts;
+                    }
+                    else {
+                        firstElementOnViewPort--;
+                    }
+
+                    $(sliderList).animate({
+                        left: '+=' + sizeFirstElmnt,
+                        y: 0,
+                        queue: true
+                    }, 'swing', function () {
+                        // set the animation flag
+                        isAnimating = false;
+                    });
+
+                    isAnimating = true;
+                }
+            });
+
+            // next
+            $(next).click(function (event) {
+                event.preventDefault();
+
+                if (!isAnimating) {
+                    if (firstElementOnViewPort > numElmts) {
+                        firstElementOnViewPort = 2;
+                        $(sliderList).css('left', '0px');
+                    }
+                    else {
+                        firstElementOnViewPort++;
+                    }
+
+                    $(sliderList).animate({
+                        left: '-=' + sizeFirstElmnt,
+                        y: 0,
+                        queue: true
+                    }, 'swing', function () {
+                        // unset the animation flag
+                        isAnimating = false;
+                    });
+
+                    // set the animation flag
+                    isAnimating = true;
+                }
+            });
+        }
+    };
+})(jQuery);
