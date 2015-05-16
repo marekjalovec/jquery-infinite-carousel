@@ -45,6 +45,7 @@
                         firstElementOnViewPort--;
                     }
 
+                    // animate
                     $(sliderList).animate({
                         left: '+=' + sizeFirstElmnt,
                         y: 0,
@@ -54,6 +55,7 @@
                         isAnimating = false;
                     });
 
+                    // set the animation flag
                     isAnimating = true;
                 }
             });
@@ -71,6 +73,7 @@
                         firstElementOnViewPort++;
                     }
 
+                    // animate
                     $(sliderList).animate({
                         left: '-=' + sizeFirstElmnt,
                         y: 0,
